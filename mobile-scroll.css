@@ -12,6 +12,7 @@
     scroll-snap-type: y proximity;
     /* Snap destinations begin below the fixed navigation instead of behind it. */
     scroll-padding-top: var(--mobile-header-height);
+    overscroll-behavior-y: contain;
     overflow-x: clip;
   }
 
@@ -24,7 +25,6 @@
     min-height: calc(100svh - var(--mobile-header-height));
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    scroll-margin-top: var(--mobile-header-height);
     overflow-x: clip;
   }
 
@@ -49,6 +49,10 @@
     min-height: 100svh;
   }
 
+  main > div > section.lm-home-hero .lm-hero-stage {
+    height: 100svh !important;
+  }
+
   img,
   video,
   canvas {
@@ -59,6 +63,10 @@
     main > div > section.lm-home-hero {
       height: 100dvh !important;
       min-height: 100dvh;
+    }
+
+    main > div > section.lm-home-hero .lm-hero-stage {
+      height: 100dvh !important;
     }
   }
 

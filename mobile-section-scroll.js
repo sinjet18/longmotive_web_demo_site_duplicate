@@ -13,7 +13,6 @@
   let touch = null;
   let stepping = false;
   let settleTimer = null;
-  let stopListening = null;
 
   const headerHeight = () => document.querySelector('header')?.getBoundingClientRect().height || 0;
   const sections = () => [...document.querySelectorAll(selector)].filter((node) => {
@@ -61,17 +60,14 @@
       stepping = false;
       clearTimeout(settleTimer);
       settleTimer = null;
-      if (stopListening) stopListening();
-      stopListening = null;
       // Remove the last sub-pixel difference before restoring CSS snapping.
       if (Math.abs(window.scrollY - top) > 1) window.scrollTo({ top, behavior: 'auto' });
       root.style.scrollSnapType = previousSnap;
     };
 
-    if ('onscrollend' in window) {
-      window.addEventListener('scrollend', settle, { once: true });
-      stopListening = () => window.removeEventListener('scrollend', settle);
-    }
+    // Do not use scrollend here. The cancelled finger movement can emit its
+    // own scrollend before the programmatic animation finishes, especially on
+    // the first Home transition, which restores snapping too early.
     settleTimer = window.setTimeout(settle, 750);
     try {
       window.scrollTo({ top, behavior: 'smooth' });
