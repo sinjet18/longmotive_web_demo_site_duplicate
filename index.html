@@ -117,6 +117,10 @@
 <script defer src="./support.js"></script>
 <link rel="stylesheet" href="whatsapp.css">
 <script defer src="whatsapp.js"></script>
+<script defer src="mobile-section-scroll.js?v=20260914-4"></script>
+<link rel="stylesheet" href="contact.css?v=20260914-2">
+<link rel="stylesheet" href="about.css">
+<link rel="stylesheet" href="mobile-scroll.css?v=20260915-5">
 </head>
 <body>
 <!-- Malaysia WhatsApp number migrated from the original Longmotive website.
@@ -256,6 +260,7 @@
     border:1px solid rgba(0,176,240,.55);border-radius:var(--radius-sm);padding:5px 9px;
     font-family:var(--font-mono);font-size:10.5px;font-weight:600;letter-spacing:.12em;
     text-transform:uppercase;color:var(--lm-cyan-300);pointer-events:none}
+  .lm-project-pair{display:contents}
   /* .lm-3dbtn is gone. It said "Open 3D viewer" on all twenty cards, under a
      "3D" badge that was also on all twenty -- the same claim twice per card,
      forty times down the page, distinguishing nothing. The badge stays because
@@ -369,7 +374,7 @@
     <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <div>
       <sc-if value="{{ isVideoHero }}" hint-placeholder-val="{{ true }}">
-      <section class="lm-scroll-stop" ref="{{ heroTrackRef }}" style="position:relative;height:500vh;background:var(--lm-blue-900);scroll-snap-align:start">
+      <section class="lm-scroll-stop lm-home-hero" ref="{{ heroTrackRef }}" style="position:relative;height:500vh;background:var(--lm-blue-900);scroll-snap-align:start">
         <div class="lm-hero-stage" style="position:sticky;top:0;height:100vh;overflow:hidden">
           <sc-if value="{{ isVideoScrub }}" hint-placeholder-val="{{ false }}"><video class="lm-hero-media" ref="{{ heroVideoRef }}" poster="uploads/campus-v2-merged16-poster-eae9bed7.jpg" muted="{{ true }}" playsinline="{{ true }}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video></sc-if><sc-if value="{{ isVideoScrub }}" hint-placeholder-val="{{ false }}"><canvas class="lm-hero-media" ref="{{ heroCanvasRef }}" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none"></canvas></sc-if>
           <sc-if value="{{ is3dHero }}" hint-placeholder-val="{{ true }}"><lm-campus-hero class="lm-hero-media" ref="{{ campusRef }}" style="position:absolute;inset:0"></lm-campus-hero></sc-if>
@@ -441,7 +446,7 @@
       </sc-if>
 
 
-      <section class="lm-snapsec" style="position:relative;height:100vh;overflow:hidden;background:var(--surface-page);scroll-snap-align:start">
+      <section class="lm-snapsec lm-home-services" style="position:relative;height:100vh;overflow:hidden;background:var(--surface-page);scroll-snap-align:start">
         <div style="position:relative;height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 var(--gutter)">
         <sc-if value="{{ showPrinciplesVideo }}" hint-placeholder-val="{{ false }}"><video ref="{{ principlesVideoRef }}" data-src="uploads/principles-bg-6c7ebe6f.mp4" muted="{{ true }}" loop="{{ true }}" playsinline="{{ true }}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;opacity:.42;pointer-events:none"></video></sc-if>
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(255,255,255,.55) 40%,rgba(255,255,255,0) 75%);pointer-events:none"></div>
@@ -466,7 +471,7 @@
 
       <section class="lm-project-section">
         <sc-if value="{{ isStats }}" hint-placeholder-val="{{ true }}">
-        <div style="background:var(--lm-blue-700);margin:calc(-1 * clamp(76px,9vw,124px)) calc(-1 * var(--gutter)) clamp(38px,5vw,64px);padding:calc(72px + clamp(12px,2vh,18px)) var(--gutter) clamp(14px,2vh,20px)">
+        <div class="lm-home-stats" style="background:var(--lm-blue-700);margin:calc(-1 * clamp(76px,9vw,124px)) calc(-1 * var(--gutter)) clamp(38px,5vw,64px);padding:calc(72px + clamp(12px,2vh,18px)) var(--gutter) clamp(14px,2vh,20px)">
           <div class="lm-g4" style="max-width:var(--container-max);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
             <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
               <div data-reveal="{{ $index }}" style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
@@ -530,7 +535,7 @@
         </div>
       </section>
 
-      <section class="lm-scroll-stop" style="background:var(--lm-gradient-brand);scroll-snap-align:start">
+      <section class="lm-scroll-stop" style="background:var(--lm-gradient-brand);scroll-snap-align:start" data-home-cta="true">
         <div data-reveal="0" style="max-width:var(--container-max);margin:0 auto;padding:72px var(--gutter);display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap">
           <div>
             <h2 style="color:#fff;font-size:var(--fs-display);margin:0 0 8px">Have a project in mind?</h2>
@@ -544,57 +549,49 @@
 
     <sc-if value="{{ isAbout }}">
     <div>
-      <section class="lm-snapsec" style="height:100vh;overflow:hidden;display:flex;flex-direction:column;background:var(--surface-page);scroll-snap-align:start">
-        <div style="background:var(--lm-gradient-deep);padding:calc(72px + clamp(14px,2.6vh,26px)) var(--gutter) clamp(14px,2.6vh,26px)">
-          <div data-reveal="0" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:clamp(4px,0.9vh,8px)">
-            <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--lm-cyan-400)"><span style="width:28px;height:2px;background:currentColor"></span>About Longmotive</span>
-            <h1 style="margin:0;font-size:min(var(--fs-h1),3.6vh);color:#fff;line-height:1.1">An M&amp;E company built on quality, technology and service</h1>
-          </div>
-        </div>
-        <div style="flex:1;display:flex;align-items:center;padding:0 var(--gutter);min-height:0">
-          <div class="lm-split2" style="max-width:var(--container-max);margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(24px,4vw,56px);align-items:center">
-            <div data-reveal="0" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(10px,1.6vh,16px)">
-              <div style="grid-column:1/-1;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);height:clamp(190px,34vh,330px)"><img src="assets/img/about-2-1400.webp" alt="Rack systems being installed in a data hall" style="width:100%;height:100%;object-fit:cover"/></div>
-              <div style="border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);height:clamp(115px,20vh,200px)"><img src="assets/img/about-1-994.webp" alt="Technicians working on rooftop cooling towers" style="width:100%;height:100%;object-fit:cover"/></div>
-              <div style="border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);height:clamp(115px,20vh,200px)"><img src="assets/img/about-5.jpg" alt="Structured cabling inside network racks" style="width:100%;height:100%;object-fit:cover"/></div>
-            </div>
-            <div data-reveal="1">
-              <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Who We Are</span>
-              <h2 style="margin:clamp(8px,1.4vh,12px) 0 0;font-size:min(var(--fs-h1),4.8vh);color:var(--text-strong)">Top-tier M&amp;E engineering, delivered by one accountable team</h2>
-              <p style="margin:clamp(12px,2.2vh,20px) 0 0;color:var(--text-strong);font-size:clamp(14px,2vh,17px);line-height:1.6">We specialize in delivering top-tier mechanical &amp; electrical engineering services tailored to the data-center industry — standardized construction, safe operations, and efficient service delivery for our clients.</p>
-              <p style="color:var(--text-body);font-size:clamp(13px,1.9vh,16px);line-height:1.65;margin-top:clamp(10px,2vh,18px)">Longmotive (M) Sdn. Bhd. is a mechanical &amp; electrical engineering company registered in Johor Bahru, Johor under the Malaysian Companies Act, serving enterprise and data-center clients across the region with one integrated team spanning every MEP discipline.</p>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.4vh,12px) 20px;margin-top:clamp(12px,2.2vh,20px)">
-                <sc-for list="{{ strongPoints }}" as="sp" hint-placeholder-count="4">
-                  <div style="display:flex;align-items:flex-start;gap:9px;font-size:clamp(13px,1.7vh,14.5px);line-height:1.45;color:var(--text-body)"><span style="color:var(--color-accent);flex-shrink:0;margin-top:1px">{{ checkIcon }}</span>{{ sp }}</div>
-                </sc-for>
+      <section class="about-intro-section">
+        <div class="about-intro-panel">
+          <div class="about-intro-content">
+            <div class="about-intro-copy">
+              <span class="about-intro-badge">ABOUT LONGMOTIVE</span>
+              <p class="about-intro-tagline">An M&amp;E company built on quality, technology and service</p>
+              <span class="about-intro-eyebrow">• WHO WE ARE</span>
+              <h1>Top-tier M&amp;E engineering, delivered<br/>by one accountable team</h1>
+              <div class="about-intro-details">
+                <div><p><strong>We specialize in delivering top-tier mechanical &amp; electrical engineering services tailored to the data-center industry — standardized construction, safe operations, and efficient service delivery for our clients.</strong></p><p>Longmotive (M) Sdn. Bhd. is a mechanical &amp; electrical engineering company registered in Johor Bahru, Johor under the Malaysian Companies Act, serving enterprise and data-center clients across the region with one integrated team spanning every MEP discipline.</p></div>
+                <ul><sc-for list="{{ strongPoints }}" as="sp" hint-placeholder-count="4"><li>{{ sp }}</li></sc-for></ul>
               </div>
             </div>
+            <button class="about-project-preview" onClick="{{ goProjects }}" aria-label="Discover our recent projects">
+              <div class="about-preview-image"><img src="assets/img/about-2-1400.webp" alt="Longmotive data centre engineering project"/><span>New M&amp;E Engineering<br/>for the Future</span><span class="about-preview-arrow">{{ arrowIcon }}</span></div>
+              <div class="about-preview-caption">Discover Our Recent Projects <span aria-hidden="true">•••</span></div>
+            </button>
           </div>
+          <div class="about-intro-stats about-intro-stats-desktop" data-about-stats="true"><sc-for list="{{ stats }}" as="s" hint-placeholder-count="4"><div><div class="about-stat-number">{{ s.value }}<span>{{ s.suffix }}</span></div><div class="about-stat-label">{{ s.label }}</div></div></sc-for></div>
         </div>
-        <div style="background:var(--lm-blue-900);padding:clamp(16px,3.4vh,34px) var(--gutter)">
-          <div class="lm-g4" style="max-width:var(--container-max);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px" data-about-stats="true">
-            <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
-              <div data-reveal="{{ $index }}">
-                <div data-stat="1" style="font-family:var(--font-display);font-weight:800;font-size:clamp(28px,4.4vh,44px);line-height:1;color:#fff">{{ s.value }}<span style="color:var(--lm-cyan-400)">{{ s.suffix }}</span></div>
-                <div style="font-size:clamp(11px,1.5vh,13px);letter-spacing:.03em;color:var(--lm-blue-200);margin-top:clamp(4px,1vh,8px);text-transform:uppercase;font-family:var(--font-mono)">{{ s.label }}</div>
-              </div>
-            </sc-for>
-          </div>
-        </div>
+        <div class="about-intro-stats about-intro-stats-mobile" data-about-stats="true"><sc-for list="{{ stats }}" as="s" hint-placeholder-count="4"><div><div class="about-stat-number">{{ s.value }}<span>{{ s.suffix }}</span></div><div class="about-stat-label">{{ s.label }}</div></div></sc-for></div>
       </section>
-
-      <section class="lm-snapsec" style="height:100vh;overflow:hidden;display:flex;flex-direction:column;background:var(--surface-page);scroll-snap-align:start">
+      <section class="lm-snapsec lm-about-story" style="height:100vh;overflow:hidden;display:flex;flex-direction:column;background:var(--surface-page);scroll-snap-align:start">
         <div style="height:72px;flex-shrink:0"></div>
         <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,4.2vh,52px);padding:0 var(--gutter);min-height:0">
-          <div class="lm-g3" style="max-width:var(--container-max);margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+          <div class="lm-g3 about-gallery-screen" style="max-width:var(--container-max);margin:0 auto;width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
             <sc-for list="{{ aboutGallery }}" as="g" hint-placeholder-count="3">
-              <figure data-reveal="{{ $index }}" style="margin:0;display:flex;flex-direction:column;gap:10px">
-                <div style="border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);height:clamp(140px,26vh,265px)"><sc-if value="{{ g.vid }}" hint-placeholder-val="{{ false }}"><video ref="{{ galleryVideoRef }}" data-src="{{ g.vid }}" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsinline="{{ true }}" preload="auto" style="width:100%;height:100%;object-fit:cover;display:block"></video></sc-if></div>
-                <figcaption style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)"><span style="width:18px;height:2px;background:var(--color-accent)"></span>{{ g.cap }}</figcaption>
-              </figure>
-            </sc-for>
+                <figure class="about-gallery-card" data-reveal="{{ $index }}">
+                  <div class="about-gallery-media">
+                    <sc-if value="{{ g.vid }}" hint-placeholder-val="{{ false }}"><video ref="{{ galleryVideoRef }}" data-src="{{ g.vid }}" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsinline="{{ true }}" preload="auto"></video></sc-if>
+                    <div class="about-gallery-overlay">
+                      <p class="about-gallery-desc">
+                        <sc-for list="{{ g.descWords }}" as="w" hint-placeholder-count="5">
+                          <span style="transition-delay:calc({{ $index }} * 0.04s)">{{ w }}&nbsp;</span>
+                        </sc-for>
+                      </p>
+                    </div>
+                  </div>
+                  <figcaption style="display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)"><span style="width:18px;height:2px;background:var(--color-accent)"></span>{{ g.cap }}</figcaption>
+                </figure>
+              </sc-for>
           </div>
-          <div style="max-width:var(--container-max);margin:0 auto;width:100%">
+          <div class="about-philosophy-screen" style="max-width:var(--container-max);margin:0 auto;width:100%">
             <div data-reveal="0" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:clamp(6px,1.3vh,12px);max-width:64ch;margin:0 auto">
               <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Our Philosophy</span>
               <h2 style="margin:0;font-size:min(var(--fs-display),4.8vh);color:var(--text-strong)">Survival by quality. Development by technology. Growth by service.</h2>
@@ -613,7 +610,7 @@
         </div>
       </section>
 
-      <section style="background:var(--surface-page);padding:var(--section-y) var(--gutter);scroll-snap-align:start">
+      <section class="about-principles-section" style="background:var(--surface-page);padding:var(--section-y) var(--gutter);scroll-snap-align:start">
         <div style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:52px">
           <div data-reveal="0">
             <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Our Principles</span>
@@ -626,16 +623,16 @@
         </div>
       </section>
 
-      <section style="background:var(--surface-subtle);padding:calc(72px + clamp(28px,5vh,52px)) var(--gutter) var(--section-y);scroll-snap-align:start">
+      <section class="about-certs-section" style="background:var(--surface-subtle);padding:calc(72px + clamp(28px,5vh,52px)) var(--gutter) var(--section-y);scroll-snap-align:start">
         <div style="max-width:var(--container-max);margin:0 auto">
           <div data-reveal="0" style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px;max-width:64ch;margin:0 auto">
             <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-accent)"><span style="width:28px;height:2px;background:currentColor"></span>Certifications</span>
             <h2 style="margin:0;font-size:var(--fs-display);color:var(--text-strong)">Independently certified</h2>
             <p style="margin:0;font-size:17px;color:var(--text-muted);line-height:1.6">Eight management-system certifications registered to Longmotive (M) Sdn. Bhd. (1473095-A), covering quality, environment, safety, energy, continuity and ethics.</p>
           </div>
-          <div class="lm-g4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px">
+          <div class="lm-g4 about-certs-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:48px">
             <sc-for list="{{ certs }}" as="c" hint-placeholder-count="8">
-              <div data-reveal="{{ $index }}" style="position:relative;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);box-shadow:var(--shadow-xs);display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s" style-hover="box-shadow:var(--shadow-lg);transform:translateY(-3px);z-index:6">
+              <div class="about-cert-card" data-reveal="{{ $index }}" style="position:relative;background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:var(--radius-md);box-shadow:var(--shadow-xs);display:flex;flex-direction:column;transition:box-shadow .25s,transform .25s" style-hover="box-shadow:var(--shadow-lg);transform:translateY(-3px);z-index:6">
                 <div style="background:#fff;padding:14px 14px 0;display:flex;justify-content:center"><sc-if value="{{ c.img }}" hint-placeholder-val="{{ false }}"><img data-src="{{ c.img }}" alt="{{ c.alt }}" style="width:100%;max-width:200px;height:auto;display:block;position:relative;z-index:1;border:1px solid var(--border-subtle);cursor:zoom-in;transition:transform .28s ease,box-shadow .28s ease" style-hover="transform:scale(1.6);box-shadow:0 18px 48px rgba(7,36,72,.45)"/></sc-if></div>
                 <div style="padding:16px 18px 18px">
                   <div style="font-family:var(--font-mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--color-brand)">{{ c.code }}</div>
@@ -651,16 +648,15 @@
     </sc-if>
 
     <sc-if value="{{ isProjects }}">
-    <div>
+    <div class="lm-projects-page">
       <!-- Tightened in the deploy repo, where a change cannot survive an export.
            Ported here so it does. -->
-      <section class="lm-projects-hero" style="background:var(--lm-projects-bg);padding:clamp(24px,2.5vw,30px) var(--gutter)">
+      <section class="lm-projects-hero lm-projects-overview" style="background:var(--lm-projects-bg);padding:clamp(24px,2.5vw,30px) var(--gutter)">
         <div data-reveal="0" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:12px;max-width:64ch">
           <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--lm-cyan-400)"><span style="width:28px;height:2px;background:currentColor"></span>Portfolio</span>
           <h1 style="margin:0;font-size:var(--fs-display-lg);color:#fff">Our Projects</h1>
           <p style="margin:0;font-size:18px;color:var(--lm-blue-100);line-height:1.6">Representative MEP works from the data-center projects we have delivered &#8212; plant rooms, power distribution, data halls and controls.</p>
         </div>
-      </section>
       <!-- WHERE WE BUILD. An iframe, not a port into this component: the globe
            needs an import map for three.js's post-processing addons, and an import
            map has to precede every module on the document -- on a page whose
@@ -671,23 +667,26 @@
            reach any of it. postMessage is the seam when a site click has to open
            project material. Nothing below this block moved -- the MEP portfolio is
            unchanged, it just starts lower. -->
-      <section style="background:var(--lm-projects-bg);padding:0 var(--gutter) clamp(22px,3vw,36px)">
+      <div class="lm-projects-globe-section" style="padding:0 0 clamp(22px,3vw,36px)">
         <div style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:12px">
           <iframe class="lm-globeframe" src="projects-globe-embed.html" loading="lazy"
                   title="Where Longmotive builds — interactive site map"></iframe>
           <p style="margin:0;font-family:var(--font-mono);font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--lm-blue-100);opacity:.75">
             Four countries, one delivery team · drag to turn · click a site</p>
         </div>
+      </div>
       </section>
-      <section style="background:var(--lm-projects-bg);padding:38px var(--gutter) var(--section-y)">
+      <section class="lm-projects-list-section" style="background:var(--lm-projects-bg);padding:38px var(--gutter) var(--section-y)">
         <div style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:30px">
-          <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div class="lm-projects-filter-bar" style="display:flex;gap:10px;flex-wrap:wrap">
             <sc-for list="{{ filters }}" as="f" hint-placeholder-count="6">
               <button onClick="{{ f.onClick }}" style="{{ f.style }}">{{ f.label }}<span style="{{ f.countStyle }}">{{ f.count }}</span></button>
             </sc-for>
           </div>
-          <div class="lm-g3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
-            <sc-for list="{{ filteredProjects }}" as="p" hint-placeholder-count="6">
+          <div class="lm-g3 lm-projects-list-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+            <sc-for list="{{ projectPairs }}" as="pair" hint-placeholder-count="3">
+            <section class="lm-project-pair">
+            <sc-for list="{{ pair.items }}" as="p" hint-placeholder-count="2">
               <div class="lm-pcard" data-comment-anchor="project-card-{{ p.title }}" onClick="{{ p.onOpen }}" style="{{ p.cardStyle }}" style-hover="background:#0c2338;border-color:rgba(83,206,250,.5);transform:translateY(-2px);box-shadow:0 10px 26px rgba(0,0,0,.35)">
                 <div style="position:relative;aspect-ratio:3/2;overflow:hidden;background:#02080f"><img data-src="{{ p.img }}" alt="{{ p.title }}" style="width:100%;height:100%;object-fit:cover;display:block"/><sc-if value="{{ p.viewer3d }}" hint-placeholder-val="{{ false }}"><span class="lm-3dbadge">{{ cubeIcon }} 3D</span></sc-if></div>
                 <div style="padding:15px 18px 17px;display:flex;flex-direction:column;gap:6px">
@@ -697,6 +696,8 @@
                 </div>
               </div>
             </sc-for>
+            </section>
+            </sc-for>
           </div>
         </div>
       </section>
@@ -704,40 +705,13 @@
     </sc-if>
 
     <sc-if value="{{ isContact }}">
-    <div>
-      <section style="background:var(--lm-gradient-deep);padding:76px var(--gutter) 64px">
-        <div data-reveal="0" style="max-width:var(--container-max);margin:0 auto;display:flex;flex-direction:column;gap:12px;max-width:66ch">
-          <span style="display:inline-flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--lm-cyan-400)"><span style="width:28px;height:2px;background:currentColor"></span>{{ contactEyebrow }}</span>
-          <h1 style="margin:0;font-size:var(--fs-display-lg);color:#fff">{{ contactHeading }}</h1>
-          <p style="margin:0;font-size:18px;color:var(--lm-blue-100);line-height:1.6">{{ contactDescription }}</p>
-        </div>
+    <div class="contact-design">
+      <section class="contact-hero contact-wrap">
+        <div class="contact-hero-row"><div><span class="contact-eyebrow">— {{ contactEyebrow }}</span><h1>BUILD YOUR<br/><em>FUTURE</em> WITH US</h1></div><div class="contact-intro">Have Questions Or Need Assistance? We're Here To Help! Reach Out To Our Team, And We'll Respond As Soon As Possible.<a href="tel:+6075505651">CORPORATE SUPPORT LINE ↗</a></div></div>
+        <div class="contact-team"><h2>WE'RE ALWAYS LOOKING FOR<br/> TALENTED AND COMMITTED<br/> PEOPLE TO JOIN OUR GROWING<br/> TEAM</h2><p>Whatever your background or experience level, tell us where you'd like to contribute,<br/> attach your CV and contact details — or email <a href="mailto:humanresource@longmotive.com">humanresource@longmotive.com</a>.</p><span>ENGINEERING + CLEANROOMS + DATA CENTERS</span></div>
       </section>
-      <section style="padding:var(--section-y) var(--gutter)">
-        <div style="max-width:var(--container-max);margin:0 auto">
-          <div role="tablist" aria-label="Contact form type" style="display:inline-flex;gap:6px;padding:6px;margin-bottom:30px;border:1px solid var(--border-subtle);border-radius:999px;background:var(--surface-subtle)">
-            <button type="button" role="tab" aria-selected="{{ isEnquiryTab }}" disabled="{{ submitting }}" onClick="{{ showEnquiry }}" style="{{ enquiryTabStyle }}">Enquiry</button>
-            <button type="button" role="tab" aria-selected="{{ isCareersTab }}" disabled="{{ submitting }}" onClick="{{ showCareers }}" style="{{ careersTabStyle }}">Careers</button>
-          </div>
-        <div class="lm-split2" style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:56px">
-          <div data-reveal="0">
-            <h3 style="font-size:15px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-strong);margin:0 0 22px">Business Office</h3>
-            <div style="display:flex;gap:14px;margin-bottom:22px">
-              <span style="width:42px;height:42px;flex-shrink:0;border-radius:var(--radius-sm);background:var(--lm-blue-50);color:var(--color-brand);display:inline-flex;align-items:center;justify-content:center">{{ mapIcon }}</span>
-              <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px">Address</div><div style="font-size:15px;color:var(--text-strong);line-height:1.5"><a class="lm-contact-link" href="https://www.google.com/maps/search/?api=1&amp;query=No.%209%2C%20Jalan%20Teknologi%20Perintis%201%2F2%2C%20Taman%20Teknologi%20Nusajaya%2C%2079250%20Iskandar%20Puteri%2C%20Johor." target="_blank" rel="noopener noreferrer" aria-label="Open Longmotive office address in Google Maps (new tab)">No. 9, Jalan Teknologi Perintis 1/2,<br/>Taman Teknologi Nusajaya,<br/>79250 Iskandar Puteri, Johor.</a></div></div>
-            </div>
-            <div style="display:flex;gap:14px;margin-bottom:22px">
-              <span style="width:42px;height:42px;flex-shrink:0;border-radius:var(--radius-sm);background:var(--lm-blue-50);color:var(--color-brand);display:inline-flex;align-items:center;justify-content:center">{{ phoneIcon }}</span>
-              <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px">Phone</div><div style="font-size:15px;color:var(--text-strong);line-height:1.5"><a class="lm-contact-link" href="tel:+6075505651">+607-550 5651</a></div></div>
-            </div>
-            <div style="display:flex;gap:14px;margin-bottom:22px">
-              <span style="width:42px;height:42px;flex-shrink:0;border-radius:var(--radius-sm);background:var(--lm-blue-50);color:var(--color-brand);display:inline-flex;align-items:center;justify-content:center">{{ mailIcon }}</span>
-              <div><div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:3px">Email</div><div style="font-size:15px;color:var(--text-strong);line-height:1.5"><a class="lm-contact-link" href="{{ contactEmailHref }}">{{ contactEmail }}</a></div></div>
-            </div>
-<a class="lm-contact-whatsapp" href="https://wa.me/60149916828?text=Hi%20Longmotive%2C%20I%27d%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Longmotive on WhatsApp (new tab)"><svg width="20" height="20" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.47 0 .12 5.35.12 11.93c0 2.1.55 4.15 1.59 5.96L0 24l6.27-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.18-1.24-6.18-3.46-8.42ZM12.05 21.8a9.88 9.88 0 0 1-5.04-1.38l-.36-.21-3.72.98.99-3.63-.23-.38a9.86 9.86 0 0 1-1.51-5.25c0-5.47 4.45-9.92 9.92-9.92 2.65 0 5.14 1.03 7.01 2.91a9.85 9.85 0 0 1 2.9 7.01c0 5.47-4.45 9.87-9.96 9.87Zm5.44-7.42c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.71.62.72.23 1.37.2 1.89.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg><span>Chat on WhatsApp <small>Let's talk about your project</small></span><span aria-hidden="true">↗</span></a>
-            <div style="margin-top:26px;padding:16px 18px;background:var(--surface-subtle);border-radius:var(--radius-md);font-family:var(--font-mono);font-size:11px;line-height:1.7;color:var(--text-muted)">LONGMOTIVE (M) SDN. BHD.<br/>202201027398 (1473095-A)</div>
-          </div>
-          <div data-reveal="1" style="background:#fff;border:1px solid var(--border-subtle);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:32px">
-            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+      <section class="contact-interaction contact-wrap">
+        <div class="contact-form-column contact-form-screen"><div role="tablist" aria-label="Contact form type" class="contact-tabs"><button type="button" role="tab" aria-selected="{{ isEnquiryTab }}" disabled="{{ submitting }}" onClick="{{ showEnquiry }}">Enquiry</button><button type="button" role="tab" aria-selected="{{ isCareersTab }}" disabled="{{ submitting }}" onClick="{{ showCareers }}">Careers</button></div><div class="contact-flip-card"><span class="contact-eyebrow">FILL IN THE DETAILS BELOW, AND OUR TEAM WILL GET BACK TO YOU.</span><h2>{{ contactFormHeading }}</h2><p class="contact-form-note">FEEL FREE TO WRITE US AND ASK ANY QUESTION YOU HAVE.</p>            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
               <div role="status" style="margin-bottom:20px;display:flex;gap:12px;padding:14px 16px;border-radius:var(--radius-md);background:#e7f6ec;border:1px solid #b7e0c4;color:#1c6b38"><span style="font-weight:700">{{ successTitle }}</span><span style="color:#2f7d4c">{{ successMessage }}</span></div>
             </sc-if>
             <sc-if value="{{ err }}" hint-placeholder-val="{{ false }}">
@@ -749,15 +723,14 @@
               <input type="text" name="website" value="{{ enquiry.website }}" onChange="{{ setEnquiryWebsite }}" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"/>
               <div style="display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Name <span style="color:var(--lm-danger)">*</span></label>
-                <input name="name" value="{{ enquiry.name }}" onChange="{{ setEnquiryName }}" autocomplete="name" placeholder="Name" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+                <input aria-label="name" name="name" value="{{ enquiry.name }}" onChange="{{ setEnquiryName }}" autocomplete="name" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
-              <div style="display:flex;flex-direction:column;gap:6px">
-                <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Email <span style="color:var(--lm-danger)">*</span></label>
-                <input type="email" name="email" required="{{ true }}" pattern="[^\s@]+@[^\s@]+\.[cC][oO][mM]" title="Enter a complete .com email address, e.g. name@example.com" value="{{ enquiry.email }}" onChange="{{ setEnquiryEmail }}" autocomplete="email" placeholder="Email" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+              <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px"><label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Email address <span style="color:var(--lm-danger)">*</span></label>
+                <input aria-label="Email address" type="email" name="email" required="{{ true }}" pattern="[^\s@]+@[^\s@]+\.[cC][oO][mM]" title="Enter a complete .com email address, e.g. name@example.com" value="{{ enquiry.email }}" onChange="{{ setEnquiryEmail }}" autocomplete="email" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Contact No. <span style="color:var(--lm-danger)">*</span></label>
-                <input type="tel" required="{{ true }}" name="contact" value="{{ enquiry.contact }}" onChange="{{ setEnquiryContact }}" autocomplete="tel" placeholder="Contact No." style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+                <input aria-label="contact" type="tel" required="{{ true }}" name="contact" value="{{ enquiry.contact }}" onChange="{{ setEnquiryContact }}" autocomplete="tel" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Subject <span style="color:var(--lm-danger)">*</span></label>
@@ -779,21 +752,20 @@
               <input type="text" name="website" value="{{ form.website }}" onChange="{{ setWebsite }}" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"/>
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Salutation <span style="color:var(--lm-danger)">*</span></label>
-                <select name="salutation" value="{{ form.salutation }}" onChange="{{ setSalutation }}" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff">
+                <select aria-label="Salutation" name="salutation" value="{{ form.salutation }}" onChange="{{ setSalutation }}" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff">
                   <sc-for list="{{ salutations }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
                 </select>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Name <span style="color:var(--lm-danger)">*</span></label>
-                <input name="name" value="{{ form.name }}" onChange="{{ setName }}" placeholder="Name" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+                <input aria-label="name" name="name" value="{{ form.name }}" onChange="{{ setName }}" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
               <div style="display:flex;flex-direction:column;gap:6px">
                 <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Contact No. <span style="color:var(--lm-danger)">*</span></label>
-                <input name="contact" value="{{ form.contact }}" onChange="{{ setContact }}" placeholder="Contact No." style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+                <input aria-label="contact" name="contact" value="{{ form.contact }}" onChange="{{ setContact }}" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
-              <div style="display:flex;flex-direction:column;gap:6px">
-                <label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Email <span style="color:var(--lm-danger)">*</span></label>
-                <input type="email" name="email" required="{{ true }}" pattern="[^\s@]+@[^\s@]+\.[cC][oO][mM]" title="Enter a complete .com email address, e.g. name@example.com" value="{{ form.email }}" onChange="{{ setEmail }}" placeholder="Email" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
+              <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px"><label style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Email address <span style="color:var(--lm-danger)">*</span></label>
+                <input aria-label="Email address" type="email" name="email" required="{{ true }}" pattern="[^\s@]+@[^\s@]+\.[cC][oO][mM]" title="Enter a complete .com email address, e.g. name@example.com" value="{{ form.email }}" onChange="{{ setEmail }}" placeholder="" style="width:100%;padding:11px 13px;border:1px solid var(--border-default);border-radius:var(--radius-sm);font-family:var(--font-sans);font-size:14px;color:var(--text-strong);background:#fff"/>
               </div>
               <div style="grid-column:1 / -1;display:flex;flex-direction:column;gap:6px">
                 <label for="career-interest" style="font-family:var(--font-display);font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-strong)">Position / Area of Interest <span style="color:var(--lm-danger)">*</span></label>
@@ -815,10 +787,11 @@
               </div>
             </form>
             </sc-if>
-          </div>
-        </div>
-        </div>
+</div></div>
+        <aside class="contact-visual contact-visual-screen"><div class="contact-card contact-card-tall"><img class="contact-project-image" src="{{ contactImageOne }}" alt="{{ contactImageOneAlt }}" loading="lazy" decoding="async"/><span class="contact-eyebrow">━<br/>CAPABILITY</span><h3>INDUSTRIAL<br/>MEP<br/>ARCHITECTURE</h3></div><div class="contact-card"><img class="contact-project-image" src="{{ contactImageTwo }}" alt="{{ contactImageTwoAlt }}" loading="lazy" decoding="async"/><span>SPECIALIZATION</span><h3>CLEANROOM<br/>PRECISION</h3></div><div class="contact-card"><img class="contact-project-image" src="{{ contactImageThree }}" alt="{{ contactImageThreeAlt }}" loading="lazy" decoding="async"/><span>INFRASTRUCTURE</span><h3>DATA-CENTER<br/>TURNKEY</h3></div><div class="contact-company">LONGMOTIVE (M) SDN. BHD. <span>202201027398 (1473095-A)</span></div></aside>
       </section>
+      <section class="contact-office contact-wrap"><span class="contact-eyebrow">FIND AUTHORIZED FACILITIES &amp; REGIONAL HEADQUARTER</span><h2>LOCATE BUSINESS OFFICE</h2><div class="contact-office-grid"><div><a class="contact-location" href="https://www.google.com/maps/search/?api=1&amp;query=No.%209%20Jalan%20Teknologi%20Perintis%201%2F2%20Iskandar%20Puteri%20Johor" target="_blank" rel="noopener noreferrer">ISKANDAR PUTERI, JOHOR <span>⌕</span></a><div class="contact-address"><span>HEADQUARTER NAME</span><h3>Longmotive (M) Sdn. Bhd.</h3><span>ADDRESS</span><p>No. 9, Jalan Teknologi Perintis 1/2,<br/>Taman Teknologi Nusajaya,<br/>79250 Iskandar Puteri, Johor.</p><span>PHONE NUMBER</span><a href="tel:+6075505651">+607-550 5651</a><span>EMAIL</span><a href="mailto:info@longmotive.com">info@longmotive.com</a></div></div><a class="contact-map" href="https://www.google.com/maps/search/?api=1&amp;query=No.%209%20Jalan%20Teknologi%20Perintis%201%2F2%20Iskandar%20Puteri%20Johor" target="_blank" rel="noopener noreferrer" aria-label="Open business office in Google Maps"><i class="map-road map-road-one"></i><i class="map-road map-road-two"></i><i class="map-road map-road-three"></i><div class="map-label"><strong>● TAMAN TEKNOLOGI NUSAJAYA</strong><span>ISKANDAR PUTERI · JOHOR, MALAYSIA</span></div><span class="map-pin"></span><span class="map-open">OPEN IN GOOGLE MAPS ↗</span></a></div></section>
+      <section class="contact-support contact-wrap"><span class="contact-eyebrow">REACH OUT TO OUR TEAM FOR FAST, PERSONALIZED ASSISTANCE</span><h2>CALL OR EMAIL US DIRECTLY</h2><div class="contact-support-grid"><div><span class="contact-support-icon">{{ phoneIcon }}</span><h3>PHONE SUPPORT</h3><p>+607-550 5651</p><a href="tel:+6075505651">CALL US NOW ↗</a></div><div><span class="contact-support-icon">{{ mailIcon }}</span><h3>EMAIL SUPPORT</h3><p>info@longmotive.com</p><a href="mailto:info@longmotive.com">SEND US EMAIL ↗</a></div></div></section>
     </div>
     </sc-if>
 
@@ -842,7 +815,7 @@
         <div style="display:flex;gap:10px;margin-bottom:12px;font-size:14px;line-height:1.5;color:var(--lm-blue-200)"><span style="color:var(--color-accent);flex-shrink:0;margin-top:2px">{{ mapIcon }}</span><span><a class="lm-contact-link" href="https://www.google.com/maps/search/?api=1&amp;query=No.%209%2C%20Jalan%20Teknologi%20Perintis%201%2F2%2C%20Taman%20Teknologi%20Nusajaya%2C%2079250%20Iskandar%20Puteri%2C%20Johor." target="_blank" rel="noopener noreferrer" aria-label="Open Longmotive office address in Google Maps (new tab)">No. 9, Jalan Teknologi Perintis 1/2,<br/>Taman Teknologi Nusajaya,<br/>79250 Iskandar Puteri, Johor.</a></span></div>
         <div style="display:flex;gap:10px;margin-bottom:12px;font-size:14px;line-height:1.5;color:var(--lm-blue-200)"><span style="color:var(--color-accent);flex-shrink:0;margin-top:2px">{{ phoneIcon }}</span><span><a class="lm-contact-link" href="tel:+6075505651">+607-550 5651</a></span></div>
         <div style="display:flex;gap:10px;margin-bottom:12px;font-size:14px;line-height:1.5;color:var(--lm-blue-200)"><span style="color:var(--color-accent);flex-shrink:0;margin-top:2px">{{ mailIcon }}</span><span><a class="lm-contact-link" href="mailto:info@longmotive.com">info@longmotive.com</a></span></div>
-<a class="lm-contact-whatsapp" href="https://wa.me/60149916828?text=Hi%20Longmotive%2C%20I%27d%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Longmotive on WhatsApp (new tab)"><svg width="20" height="20" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.47 0 .12 5.35.12 11.93c0 2.1.55 4.15 1.59 5.96L0 24l6.27-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.18-1.24-6.18-3.46-8.42ZM12.05 21.8a9.88 9.88 0 0 1-5.04-1.38l-.36-.21-3.72.98.99-3.63-.23-.38a9.86 9.86 0 0 1-1.51-5.25c0-5.47 4.45-9.92 9.92-9.92 2.65 0 5.14 1.03 7.01 2.91a9.85 9.85 0 0 1 2.9 7.01c0 5.47-4.45 9.87-9.96 9.87Zm5.44-7.42c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.71.62.72.23 1.37.2 1.89.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg><span>Chat on WhatsApp <small>Let's talk about your project</small></span><span aria-hidden="true">↗</span></a>
+<a class="lm-contact-whatsapp" href="https://wa.me/60149916828?text=Hi%20Longmotive%2C%20I%27d%20like%20to%20enquire%20about%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Longmotive on WhatsApp at +6014-991 6828 (new tab)"><svg width="20" height="20" aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.87 11.87 0 0 0 12.05 0C5.47 0 .12 5.35.12 11.93c0 2.1.55 4.15 1.59 5.96L0 24l6.27-1.64a11.9 11.9 0 0 0 5.77 1.47h.01c6.58 0 11.93-5.35 11.93-11.93 0-3.18-1.24-6.18-3.46-8.42ZM12.05 21.8a9.88 9.88 0 0 1-5.04-1.38l-.36-.21-3.72.98.99-3.63-.23-.38a9.86 9.86 0 0 1-1.51-5.25c0-5.47 4.45-9.92 9.92-9.92 2.65 0 5.14 1.03 7.01 2.91a9.85 9.85 0 0 1 2.9 7.01c0 5.47-4.45 9.87-9.96 9.87Zm5.44-7.42c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.48-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.2 5.09 4.49.71.31 1.27.49 1.71.62.72.23 1.37.2 1.89.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.3.18-1.42-.08-.13-.28-.2-.58-.35Z"/></svg><span>Chat on WhatsApp <small>+6014-991 6828</small></span><span aria-hidden="true">↗</span></a>
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.1);padding:18px var(--gutter);max-width:var(--container-max);margin:0 auto;font-size:12px;color:var(--lm-blue-300);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
@@ -958,7 +931,7 @@ const CERTS=[
   {img:'assets/certs/ds-49001-2012-csr.jpg',code:'DS 49001:2012',title:'Social Responsibility (CSR)'},
   {img:'assets/certs/esg-sustainability.jpg',code:'ESG',title:'ESG Compliance'}
 ];
-const NAV=['Home','About','Projects','Contact'];
+const NAV=['Home','About','Projects','News & Events','Contact'];
 // FOUR SCREENS, FOUR URLS. The nav switched screens without touching the
 // address bar, so the whole site was one crawlable URL with zero internal
 // links -- nothing for search to build sitelinks out of. Each screen now
@@ -1716,7 +1689,7 @@ class Component extends DCLogic {
   // scrub and mobile layouts remain native.
   _stepSectionWheel=(e)=>{
     const scr=this.state.screen||this.props.startScreen||'Home';
-    if((scr!=='Home'&&scr!=='About')||this._locked||e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
+    if(this._locked||e.ctrlKey||Math.abs(e.deltaX)>Math.abs(e.deltaY)) return;
     if(typeof matchMedia!=='undefined'&&matchMedia('(max-width:760px)').matches) return;
     const unit=e.deltaMode===1?16:(e.deltaMode===2?window.innerHeight:1);
     const delta=e.deltaY*unit;
@@ -1758,6 +1731,7 @@ class Component extends DCLogic {
   };
   _startLogoSeq(){
     if(this._logoSeq||this.state.navRevealed) return; this._logoSeq=true;
+    const mobile=typeof matchMedia!=='undefined'&&matchMedia('(max-width:760px)').matches;
     this._lockScroll(); // no scrolling in either direction while the logo plays
     this.setState({logoStage:1});
     setTimeout(()=>{ this.setState({logoExt:true}); },1600);
@@ -1766,7 +1740,7 @@ class Component extends DCLogic {
       this._pin=false; // stop pinning so the auto-advance can scroll (input stays blocked)
       this._heroFree=true; // release the first-visit scroll lock
       const tr=this._track;
-      if(tr&&tr.isConnected){
+      if(!mobile&&tr&&tr.isConnected){
         const r=tr.getBoundingClientRect();
         if(r.bottom>window.innerHeight*0.5){
           try{ window.scrollTo({top:window.scrollY+r.bottom,behavior:'smooth'}); }catch(e){ window.scrollTo(0,window.scrollY+r.bottom); }
@@ -1809,7 +1783,11 @@ class Component extends DCLogic {
         setTimeout(()=>{ this.setState({logoStage:3},()=>{ this._applyNav(); if(this._brand) this._brand.style.opacity='1'; }); },650);
       });
     };
-    const ready=()=>{ const t=this._track; return !t||!t.isConnected||t.getBoundingClientRect().bottom<=90; };
+    const ready=()=>{
+      const mobile=typeof matchMedia!=='undefined'&&matchMedia('(max-width:760px)').matches;
+      const t=this._track;
+      return mobile||!t||!t.isConnected||t.getBoundingClientRect().bottom<=90;
+    };
     if(ready()){ reveal(); return; }
     const t0=Date.now();
     const iv=setInterval(()=>{ if(ready()||Date.now()-t0>4500){ clearInterval(iv); reveal(); } },80);
@@ -2064,12 +2042,14 @@ class Component extends DCLogic {
   _stopHeroLoop(){ this._loopTok=(this._loopTok||0)+1;   // orphans the live chain
     if(this._rafId){ cancelAnimationFrame(this._rafId); this._rafId=null; }
     if(this._loopWatch){ clearInterval(this._loopWatch); this._loopWatch=null; } }
-  _heroUpdate(){
+  _heroUpdate(progressOverride){
     const track=this._track;
     if(!track||!track.isConnected) return;
     const rect=track.getBoundingClientRect();
     const range=rect.height-window.innerHeight;
-    const p=range>0?Math.min(1,Math.max(0,-rect.top/range)):0;
+    const p=Number.isFinite(progressOverride)
+      ?Math.min(1,Math.max(0,progressOverride))
+      :(range>0?Math.min(1,Math.max(0,-rect.top/range)):0);
     this._rememberHeroSeen(p);
     // THE FIRST-VISIT SCROLL LOCK IS GONE, and that is a decision rather than
     // a fix. It existed to keep someone inside the hero until the tour had
@@ -2141,6 +2121,21 @@ class Component extends DCLogic {
     }
     this._caps.forEach((c,i)=>{ if(c) c.style.opacity=(p>0.02&&i===idx)?'1':'0'; });
   }
+  _playMobileHeroIntro=()=>{
+    const duration=5000, start=performance.now();
+    const step=(now)=>{
+      const screen=this.state.screen||this.props.startScreen||'Home';
+      if(screen!=='Home'||this._logoSeq) return;
+      // Stop just before the desktop logo trigger, then hand off to the same
+      // logo animation used on desktop. This shows all construction phases
+      // without needing a 500vh phone scroll track.
+      const t=Math.min(1,(now-start)/duration);
+      this._heroUpdate(t*.835);
+      if(t<1) this._mobileHeroRaf=requestAnimationFrame(step);
+      else this._startLogoSeq();
+    };
+    this._mobileHeroRaf=requestAnimationFrame(step);
+  };
   componentDidMount(){
     // EVERY REFRESH IS A NEW VISIT. Browsers restore the scroll position on
     // reload by default, which on this page means landing back inside a 500vh
@@ -2219,7 +2214,17 @@ class Component extends DCLogic {
     // This latch tells that script to stand down once we are here; scroll
     // restoration is already off, so it has nothing left to defend against.
     try{ window.__lmScrollOwned=true; }catch(e){}
-    this._auto=true;
+    // A 500vh scrub sequence makes sense with a mouse wheel on desktop. On a
+    // phone it defeats the one-screen section model, so keep the opening frame
+    // still and let the next swipe move to the following section.
+    const mobileSectionLayout=typeof matchMedia!=='undefined'&&matchMedia('(max-width:760px)').matches;
+    this._auto=!mobileSectionLayout;
+    // Mobile keeps the hero to one screen, but still plays the concise logo
+    // intro. Unlike desktop, it does not auto-scroll away after the animation.
+    if(mobileSectionLayout) setTimeout(()=>{
+      const screen=this.state.screen||this.props.startScreen||'Home';
+      if(screen==='Home') this._playMobileHeroIntro();
+    },450);
     // WAIT FOR THE FRAMES, NOT FOR TWO SECONDS. The gate lifts at tier 1 -- 34 of
     // 271 frames -- which is enough for a person scrolling by hand, because they
     // move slowly and the nearest-loaded frame covers the gaps. It is NOT enough
@@ -2230,9 +2235,9 @@ class Component extends DCLogic {
     // ceiling so it always eventually plays.
     // On the video path this is a ceiling, not a delay: whichever of canplay or
     // this comes first arms the tour, and canplay normally comes first.
-    this._autoAt=performance.now()+(SEQ_OK()?2000:6000);
+    this._autoAt=mobileSectionLayout?Infinity:performance.now()+(SEQ_OK()?2000:6000);
     if(this._heroBlobReady||(this._video&&this._video.readyState>=3)) this._autoAt=performance.now();
-    if(SEQ_OK()){
+    if(SEQ_OK()&&!mobileSectionLayout){
       this._autoAt=Infinity;
       const need=Math.round(SEQ_N*0.9), giveUp=performance.now()+20000;
       const armWhenReady=()=>{
@@ -2307,6 +2312,7 @@ class Component extends DCLogic {
     if(this._railObserver)this._railObserver.disconnect();
   }
   go(n,contactTab,noPush){
+    if(n==='News & Events'){ window.location.href='news-events.html'; return; }
     const returnToSeenHero=n==='Home'&&this._heroSeen();
     this._logoSeq=true; this._heroFree=true;
     const next={screen:n,navRevealed:true,logoStage:3,sent:false,err:false,errorMessage:'',menuOpen:false};
@@ -2318,9 +2324,30 @@ class Component extends DCLogic {
       if(typeof window!=='undefined'&&window.scrollTo){try{window.scrollTo({top:0});}catch(e){window.scrollTo(0,0);}}
     });
   }
-  switchContactTab(tab){
-    if(this.state.submitting) return;
-    this.setState({contactTab:tab,sent:false,err:false,errorMessage:''});
+  async switchContactTab(tab){
+    if(this.state.submitting || this._contactFlipping || this.state.contactTab===tab) return;
+    const card=document.querySelector('.contact-flip-card');
+    const update=()=>new Promise(resolve=>this.setState({contactTab:tab,sent:false,err:false,errorMessage:''},resolve));
+    if(!card || !card.animate || window.matchMedia('(prefers-reduced-motion: reduce)').matches){await update();return;}
+    this._contactFlipping=true;
+    const direction=tab==='careers'?1:-1;
+    let animation;
+    try{
+      card.style.minHeight=card.offsetHeight+'px';
+      card.inert=true;
+      animation=card.animate([{transform:'perspective(1400px) rotateY(0deg)'},{transform:'perspective(1400px) rotateY('+direction*90+'deg)'}],{duration:240,easing:'ease-in',fill:'forwards'});
+      await animation.finished;
+      if(!card.isConnected)return;
+      await update();
+      animation.cancel();
+      animation=card.animate([{transform:'perspective(1400px) rotateY('+(-direction*90)+'deg)'},{transform:'perspective(1400px) rotateY(0deg)'}],{duration:300,easing:'ease-out',fill:'forwards'});
+      await animation.finished;
+    }finally{
+      if(animation)animation.cancel();
+      card.inert=false;
+      card.style.minHeight='';
+      this._contactFlipping=false;
+    }
   }
   setField(k){ return (e)=> this.setState(s=>({form:{...s.form,[k]:e.target.value}})); }
   setEnquiryField(k){ return (e)=> this.setState(s=>({enquiry:{...s.enquiry,[k]:e.target.value}})); }
@@ -2680,8 +2707,13 @@ class Component extends DCLogic {
       style:this.state.filter===f?{...chipBase,background:'#53cefa',borderColor:'#53cefa',color:'#04121f'}:chipBase}));
     const filteredProjects=projects.map(p=>({...p,viewer3d:!!p.onOpen}))
       .filter(p=>this.state.filter==='All'||p.tags.indexOf(this.state.filter)!==-1);
+    const projectPairs=[];
+    filteredProjects.forEach((project,index)=>{
+      if(index%2===0) projectPairs.push({items:[]});
+      projectPairs[projectPairs.length-1].items.push(project);
+    });
     return {
-      navItems, services, values, featured, filters, filteredProjects,
+      navItems, services, values, featured, filters, filteredProjects, projectPairs,
       menuOpen: this.state.menuOpen, menuClosed: !this.state.menuOpen,
       toggleMenu: ()=>this.setState(s=>({menuOpen:!s.menuOpen})),
       railCards, railWrapRef:this._railWrapRef,
@@ -2701,10 +2733,10 @@ class Component extends DCLogic {
       ],
       checkIcon: this.icon('Check',16),
       aboutGallery: [
-        {vid:'uploads/chiller-jitter-loop.mp4',cap:'Chilled-water plant room'},
-        {vid:'uploads/hf_20260725_022752_001f8e3c-c22b-48c3-86da-6acf846f63b5.mp4',cap:'UPS & switchgear corridor'},
-        {vid:'uploads/hf_20260725_020706_310da804-c5e8-422a-8e01-c4d1b8bebcde.mp4',cap:'Pipe prefabrication yard'}
-      ],
+          {vid:'uploads/chiller-jitter-loop.mp4',cap:'Chilled-water plant room',descWords:'Centralized cooling infrastructure engineered for maximum uptime.'.split(' ')},
+          {vid:'uploads/hf_20260725_022752_001f8e3c-c22b-48c3-86da-6acf846f63b5.mp4',cap:'UPS & switchgear corridor',descWords:'Continuous power distribution with redundant backup systems.'.split(' ')},
+          {vid:'uploads/hf_20260725_020706_310da804-c5e8-422a-8e01-c4d1b8bebcde.mp4',cap:'Pipe prefabrication yard',descWords:'Automated spool fabrication ensuring precision and quality control.'.split(' ')}
+        ],
       galleryVideoRef: this._galleryVideoRef,
       salutations: ['~ Please select one. ~','Mr.','Ms.','Mdm.','Dr.'],
       jobTitles: ['~ Please select one. ~','QS Engineer','Civil Engineer','Mechanical Engineer','Safety Engineer','Electric Engineer','Fire Engineer','Project Engineer','Internship Engineer','QAQC Engineer','ELV Engineer','General Application / Other'],
@@ -2739,6 +2771,13 @@ class Component extends DCLogic {
       cubeIcon: this.icon('Cube',13),
       mapIcon: this.icon('MapPin',18), phoneIcon: this.icon('Phone',18), mailIcon: this.icon('Mail',18),
       isEnquiryTab, isCareersTab,
+      contactFormHeading:isCareersTab?'Build a thriving career with us':'SEND US A MESSAGE',
+      contactImageOne:isCareersTab?'assets/img/projects-2x/chiller-piping.webp?v=contact-work-1':'assets/img/projects-2x/chiller-plant-room.webp',
+      contactImageTwo:isCareersTab?'assets/img/projects-2x/ahu-room.webp?v=contact-work-1':'assets/img/projects-2x/ahu-room.webp',
+      contactImageThree:isCareersTab?'assets/img/projects-2x/data-hall.webp?v=contact-work-1':'assets/img/projects-2x/data-hall.webp',
+      contactImageOneAlt:isCareersTab?'Installed industrial chilled-water piping':'Project chiller plant and mechanical services installation',
+      contactImageTwoAlt:isCareersTab?'Air handling equipment and precision mechanical installation':'Project air handling unit installation',
+      contactImageThreeAlt:isCareersTab?'Completed data hall infrastructure installation':'Project data centre hall',
       showEnquiry:()=>this.switchContactTab('enquiry'), showCareers:()=>this.switchContactTab('careers'),
       enquiryTabStyle:isEnquiryTab?tabActive:tabIdle, careersTabStyle:isCareersTab?tabActive:tabIdle,
       contactEyebrow:isEnquiryTab?'Get In Touch':'Join Our Team',
@@ -2752,7 +2791,7 @@ class Component extends DCLogic {
       successMessage:isEnquiryTab?'— thank you, we\'ll get back to you as soon as possible.':'— thank you, our team will be in touch as soon as possible.',
       enquiry: this.state.enquiry,
       form: this.state.form, sent: this.state.sent, err: this.state.err, submitting: this.state.submitting, errorMessage: this.state.errorMessage,
-      submitLabel: this.state.submitting?'Submitting...':'Submit',
+      submitLabel: this.state.submitting?'Submitting...':(isCareersTab?'Submit application':'Send message'),
       submitEnquiry: this.submitEnquiry.bind(this), submitCareers: this.submitCareers.bind(this),
       setEnquiryName:this.setEnquiryField('name'), setEnquiryEmail:this.setEnquiryField('email'),
       setEnquiryContact:this.setEnquiryField('contact'), setEnquirySubject:this.setEnquiryField('subject'),
