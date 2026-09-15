@@ -937,8 +937,8 @@ const NAV=['Home','About','Projects','News & Events','Contact'];
 // links -- nothing for search to build sitelinks out of. Each screen now
 // carries its own path, title and canonical; without the canonical they
 // would all fold back into '/' and the exercise would be pointless.
-const NAV_PATH={Home:'/',About:'/about',Projects:'/projects',Contact:'/contact'};
-const NAV_TITLE={Home:'Longmotive M&E Engineering | Johor, Malaysia',About:'About Longmotive | M&E Engineering in Johor',Projects:'Projects | Longmotive M&E Engineering',Contact:'Contact & Careers | Longmotive M&E Engineering'};
+const NAV_PATH={Home:'/',About:'/about',Projects:'/projects','News & Events':'/news-events.html',Contact:'/contact'};
+const NAV_TITLE={Home:'Longmotive M&E Engineering | Johor, Malaysia',About:'About Longmotive | M&E Engineering in Johor',Projects:'Projects | Longmotive M&E Engineering','News & Events':'News & Events | Longmotive M&E Engineering',Contact:'Contact & Careers | Longmotive M&E Engineering'};
 const SCREEN_AT=(p)=>{const k=String(p||'/').replace(/\/+$/,'')||'/';return k==='/about'?'About':k==='/projects'?'Projects':k==='/contact'?'Contact':k==='/'?'Home':null;};
 const SYNC_URL=(n,push)=>{try{const p=NAV_PATH[n]||'/';const abs='https://www.longmotive-m.com'+p;
   if(push&&location.pathname!==p) history.pushState({screen:n},'',p);
@@ -2312,7 +2312,7 @@ class Component extends DCLogic {
     if(this._railObserver)this._railObserver.disconnect();
   }
   go(n,contactTab,noPush){
-    if(n==='News & Events'){ window.location.href='news-events.html'; return; }
+    if(n==='News & Events'){ window.location.href=NAV_PATH[n]; return; }
     const returnToSeenHero=n==='Home'&&this._heroSeen();
     this._logoSeq=true; this._heroFree=true;
     const next={screen:n,navRevealed:true,logoStage:3,sent:false,err:false,errorMessage:'',menuOpen:false};
