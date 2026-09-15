@@ -14,7 +14,7 @@ assert.match(news, /<link rel="canonical" href="https:\/\/www\.longmotive-m\.com
 for (const href of ['/', '/about', '/projects', '/news-events', '/contact']) {
   assert.ok(news.includes(`href="${href}"`), `News navigation must link to ${href}`);
 }
-assert.match(redirects, /^\/news-events\s+\/news-events\.html\s+200$/m);
+assert.doesNotMatch(redirects, /^\/news-events\s+/m);
 assert.doesNotMatch(redirects, /^\/news-events\s+\/\s+301$/m);
 assert.match(sitemap, /<loc>https:\/\/www\.longmotive-m\.com\/news-events<\/loc>/);
 

@@ -22,7 +22,11 @@
 /about        /   200
 /projects     /   200
 /contact      /   200
-/news-events  /news-events.html  200
+
+# News & Events is a standalone news-events.html document. Cloudflare Pages
+# serves it automatically at the clean /news-events URL. Adding a rewrite to
+# /news-events.html here creates a 308 redirect loop because Pages normalises
+# that target back to /news-events.
 
 # --- 2. THE OLD CMS URLS ---------------------------------------------------
 #
