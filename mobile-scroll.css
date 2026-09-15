@@ -21,7 +21,7 @@
 
   /* Each visible SPA page is wrapped by one direct child of <main>. */
   main > div > section {
-    min-height: 100svh;
+    min-height: calc(100svh - var(--mobile-header-height));
     scroll-snap-align: start;
     scroll-snap-stop: always;
     scroll-margin-top: var(--mobile-header-height);
@@ -31,7 +31,7 @@
   /* Use the dynamic viewport where the browser supports it. */
   @supports (min-height: 100dvh) {
     main > div > section {
-      min-height: 100dvh;
+      min-height: calc(100dvh - var(--mobile-header-height));
     }
   }
 
@@ -226,7 +226,7 @@
   .about-gallery-screen,
   .about-philosophy-screen {
     box-sizing: border-box;
-    min-height: 100svh;
+    min-height: calc(100svh - var(--mobile-header-height));
     padding: 36px var(--gutter);
     scroll-snap-align: start;
     scroll-snap-stop: always;
@@ -381,7 +381,7 @@
     .about-gallery-screen,
     .about-philosophy-screen,
     .contact-form-screen {
-      min-height: 100dvh;
+      min-height: calc(100dvh - var(--mobile-header-height));
     }
   }
 }
