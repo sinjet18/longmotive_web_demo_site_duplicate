@@ -8,14 +8,15 @@ const news = fs.readFileSync(path.join(root, 'news-events.html'), 'utf8');
 const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
 
-assert.match(html, /'News & Events':'\/news-events'/);
+assert.match(html, /'News & Events':'\/news-events\?v=20260917-1'/);
 assert.match(html, /if\(n==='News & Events'\)\{ window\.location\.href=NAV_PATH\[n\]/);
 assert.match(news, /<link rel="canonical" href="https:\/\/www\.longmotive-m\.com\/news-events">/);
-for (const href of ['/', '/about', '/projects', '/news-events', '/contact']) {
+for (const href of ['/', '/about', '/projects', '/news-events?v=20260917-1', '/contact']) {
   assert.ok(news.includes(`href="${href}"`), `News navigation must link to ${href}`);
 }
 assert.doesNotMatch(redirects, /^\/news-events\s+/m);
 assert.doesNotMatch(redirects, /^\/news-events\s+\/\s+301$/m);
 assert.match(sitemap, /<loc>https:\/\/www\.longmotive-m\.com\/news-events<\/loc>/);
+assert.match(fs.readFileSync(path.join(root, '_headers'), 'utf8'), /\/news-events\s+Cache-Control: no-store, max-age=0/s);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');

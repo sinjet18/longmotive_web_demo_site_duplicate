@@ -17,3 +17,11 @@
 
 /_ds/*
   Cache-Control: public, max-age=31536000, immutable
+
+# The clean News URL previously returned a permanent redirect. Do not let a
+# browser or intermediary retain navigation responses for this route again.
+/news-events
+  Cache-Control: no-store, max-age=0
+
+/news-events.html
+  Cache-Control: no-store, max-age=0
