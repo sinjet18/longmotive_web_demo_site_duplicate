@@ -7,6 +7,7 @@ const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 const news = fs.readFileSync(path.join(root, 'news-events.html'), 'utf8');
 const redirects = fs.readFileSync(path.join(root, '_redirects'), 'utf8');
 const sitemap = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
+const css = fs.readFileSync(path.join(root, 'news-events.css'), 'utf8');
 
 assert.match(html, /'News & Events':'\/news-events\?v=20260917-1'/);
 assert.match(html, /if\(n==='News & Events'\)\{ window\.location\.href=NAV_PATH\[n\]/);
@@ -18,5 +19,7 @@ assert.doesNotMatch(redirects, /^\/news-events\s+/m);
 assert.doesNotMatch(redirects, /^\/news-events\s+\/\s+301$/m);
 assert.match(sitemap, /<loc>https:\/\/www\.longmotive-m\.com\/news-events<\/loc>/);
 assert.match(fs.readFileSync(path.join(root, '_headers'), 'utf8'), /\/news-events\s+Cache-Control: no-store, max-age=0/s);
+assert.match(css, /\.ne-card-img\s*\{[^}]*object-fit:\s*contain/s);
+assert.match(css, /\.ne-modal-header-img\s*\{[^}]*object-fit:\s*contain/s);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');

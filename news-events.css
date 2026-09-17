@@ -398,12 +398,12 @@ body {
 .ne-card-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transition: transform 0.35s ease;
+  object-fit: contain;
+  object-position: center;
 }
 
 .ne-card:hover .ne-card-img {
-  transform: scale(1.04);
+  transform: none;
 }
 
 /* Category Pill Badges */
@@ -734,7 +734,9 @@ body {
   display: block;
   width: 100%;
   height: 260px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  background: var(--lm-slate-900);
 }
 
 .ne-carousel-btn {
