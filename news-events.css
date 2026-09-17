@@ -730,13 +730,37 @@ body {
   touch-action: pan-y;
 }
 
+.ne-modal-carousel::before {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  z-index: 0;
+  background-image: var(--ne-modal-image, none);
+  background-position: center;
+  background-size: cover;
+  filter: blur(20px);
+  opacity: 0.58;
+  transform: scale(1.08);
+}
+
+.ne-modal-carousel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(4, 12, 24, 0.38), rgba(4, 12, 24, 0.08) 32%, rgba(4, 12, 24, 0.08) 68%, rgba(4, 12, 24, 0.38));
+  pointer-events: none;
+}
+
 .ne-modal-header-img {
+  position: relative;
+  z-index: 2;
   display: block;
   width: 100%;
   height: 260px;
   object-fit: contain;
   object-position: center;
-  background: var(--lm-slate-900);
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 
 .ne-carousel-btn {
@@ -786,6 +810,11 @@ body {
   gap: 10px;
   margin-bottom: 10px;
   flex-wrap: wrap;
+}
+
+.ne-modal-meta .ne-card-badge {
+  position: static;
+  flex: 0 0 auto;
 }
 
 .ne-modal-title {

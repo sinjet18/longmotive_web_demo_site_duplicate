@@ -21,5 +21,7 @@ assert.match(sitemap, /<loc>https:\/\/www\.longmotive-m\.com\/news-events<\/loc>
 assert.match(fs.readFileSync(path.join(root, '_headers'), 'utf8'), /\/news-events\s+Cache-Control: no-store, max-age=0/s);
 assert.match(css, /\.ne-card-img\s*\{[^}]*object-fit:\s*cover/s);
 assert.match(css, /\.ne-modal-header-img\s*\{[^}]*object-fit:\s*contain/s);
+assert.match(css, /\.ne-modal-carousel::before\s*\{[^}]*background-image:\s*var\(--ne-modal-image/s);
+assert.match(news, /modalCarousel\.style\.setProperty\('--ne-modal-image'/);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');
