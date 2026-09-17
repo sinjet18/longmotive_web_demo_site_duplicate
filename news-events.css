@@ -730,37 +730,12 @@ body {
   touch-action: pan-y;
 }
 
-.ne-modal-carousel::before {
-  content: "";
-  position: absolute;
-  inset: -24px;
-  z-index: 0;
-  background-image: var(--ne-modal-image, none);
-  background-position: center;
-  background-size: cover;
-  filter: blur(20px);
-  opacity: 0.58;
-  transform: scale(1.08);
-}
-
-.ne-modal-carousel::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(90deg, rgba(4, 12, 24, 0.38), rgba(4, 12, 24, 0.08) 32%, rgba(4, 12, 24, 0.08) 68%, rgba(4, 12, 24, 0.38));
-  pointer-events: none;
-}
-
 .ne-modal-header-img {
-  position: relative;
-  z-index: 2;
   display: block;
   width: 100%;
-  height: 260px;
+  height: auto;
   object-fit: contain;
   object-position: center;
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 
 .ne-carousel-btn {
@@ -953,7 +928,7 @@ body {
   }
 
   .ne-modal-overlay { padding: 10px; }
-  .ne-modal-header-img { height: min(48svh, 390px); }
+  .ne-modal-header-img { height: auto; }
   .ne-modal-body { padding: 18px; }
   .ne-carousel-btn { width: 38px; height: 38px; }
 }

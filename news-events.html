@@ -20,7 +20,7 @@
   <link rel="icon" href="/assets/favicon-standard-v1.png" sizes="32x32">
   <link rel="apple-touch-icon" href="/assets/apple-touch-standard-v1.png">
   <link rel="stylesheet" href="_ds/longmotive-design-system-8d1e5cc8-409c-43e1-9315-92313b8f450f/styles.css">
-  <link rel="stylesheet" href="news-events.css?v=20260917-7">
+  <link rel="stylesheet" href="news-events.css?v=20260917-8">
   <link rel="stylesheet" href="whatsapp.css">
   <script defer src="mobile-section-scroll.js?v=20260915-2"></script>
 </head>
@@ -587,7 +587,6 @@
       const total = modalGallery.length || 1;
       const modalImageUrl = modalGallery[modalGalleryIndex];
       modalImg.src = modalImageUrl;
-      modalCarousel.style.setProperty('--ne-modal-image', `url(${JSON.stringify(modalImageUrl)})`);
       modalImg.alt = `${modalTitle.textContent || 'Event'} — image ${modalGalleryIndex + 1} of ${total}`;
       modalImageCount.textContent = `${modalGalleryIndex + 1} / ${total}`;
       const hasMultiple = total > 1;
