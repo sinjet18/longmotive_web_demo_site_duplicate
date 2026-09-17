@@ -23,5 +23,6 @@ assert.match(css, /\.ne-card-img\s*\{[^}]*object-fit:\s*cover/s);
 assert.match(css, /\.ne-modal-header-img\s*\{[^}]*width:\s*100%[^}]*height:\s*auto[^}]*object-fit:\s*contain/s);
 assert.doesNotMatch(css, /\.ne-modal-carousel::before/);
 assert.doesNotMatch(news, /--ne-modal-image/);
+assert.doesNotMatch(news, /class="ne-breadcrumb"/);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');
