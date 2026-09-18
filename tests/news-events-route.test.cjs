@@ -24,5 +24,7 @@ assert.match(css, /\.ne-modal-header-img\s*\{[^}]*width:\s*100%[^}]*height:\s*au
 assert.doesNotMatch(css, /\.ne-modal-carousel::before/);
 assert.doesNotMatch(news, /--ne-modal-image/);
 assert.doesNotMatch(news, /class="ne-breadcrumb"/);
+assert.match(news, /const modalWidth = Math\.min\(640, Math\.max\(320, naturalWidth\)\)/);
+assert.match(css, /max-width:\s*var\(--ne-modal-natural-width, 640px\)/);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');
