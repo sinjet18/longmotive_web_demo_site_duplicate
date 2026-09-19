@@ -358,7 +358,7 @@
         isoDate: "2023-12-08",
         category: "International Delegation",
         description: "Cross-border technical exchange and engineering tour exploring high-density prefabricated modular systems and celebrating annual milestones in China.",
-        image: "assets/events/event-11.jpg?v=gallery-1"
+        image: "assets/events/event-11.jpg?v=20260919-1"
       },
       {
         id: 12,
@@ -436,13 +436,15 @@
 
     modalImg.addEventListener('load', fitModalToImage);
 
-    fetch('assets/events/gallery/sources.json?v=gallery-1')
+    const galleryAssetVersion = '20260919-1';
+
+    fetch(`assets/events/gallery/sources.json?v=${galleryAssetVersion}`)
       .then(response => response.ok ? response.json() : Promise.reject(new Error('Gallery index unavailable')))
       .then(items => {
         items.forEach(entry => {
           const file = entry.file.replace(/\\/g, '/');
           const album = file.split('/')[0];
-          (galleryByAlbum[album] ||= []).push(`assets/events/gallery/${file}`);
+          (galleryByAlbum[album] ||= []).push(`assets/events/gallery/${file}?v=${galleryAssetVersion}`);
         });
       })
       .catch(() => { galleryByAlbum = {}; });
