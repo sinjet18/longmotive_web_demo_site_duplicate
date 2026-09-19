@@ -26,7 +26,7 @@ assert.doesNotMatch(news, /--ne-modal-image/);
 assert.doesNotMatch(news, /class="ne-breadcrumb"/);
 assert.match(news, /const modalWidth = Math\.min\(640, Math\.max\(320, naturalWidth\)\)/);
 assert.match(css, /max-width:\s*var\(--ne-modal-natural-width, 640px\)/);
-assert.match(news, /const galleryAssetVersion = '20260919-1'/);
+assert.match(news, /const galleryAssetVersion = '20260919-2'/);
 assert.match(news, /assets\/events\/gallery\/\$\{file\}\?v=\$\{galleryAssetVersion\}/);
 
 console.log('PASS: News & Events follows the shared URL and standalone-head pattern');
